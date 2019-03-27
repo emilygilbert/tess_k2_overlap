@@ -1,0 +1,2 @@
+-wtv-all-unique-targets.csv contains the list of all K2 targets subsequently observed with TESS  
+-K2cut.csv is the subset of wtv-all-unique-targets.csv that have been observed at the time of creation of this file (through sector 7) and below 16th mag
