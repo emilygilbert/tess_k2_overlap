@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[ ]:
-
-
 """
 Thanks to Christina Hedges for the NEXSCI data retrieval function
 """
@@ -39,17 +33,17 @@ def retrieve_online_data():
     df = pd.merge(left=planets, right=composite, how='left', left_on=['pl_hostname', 'pl_letter'],
          right_on=['pl_hostname', 'pl_letter'])
     return df[df.pl_tranflag == 1]
-    
-df = retrieve_online_data()
-df.to_csv('nexsci_output.csv')
+
+def save_nexsci_output():
+    df = retrieve_online_data()
+    df.to_csv('nexsci_output.csv')
 
 def get_number_of_planets(hostname):
     n = np.asarray(df.loc[df.pl_hostname == hostname][['pl_pnum']])[0]
+
     return n
 
 def get_planet_params(hostname, planet_letter='b'):
-    period, t0, dur, depth = np.asarray(df.loc[df.pl_hostname == hostname][['pl_orbper', 'pl_tranmid', 
-                                                                     'pl_trandur', 'pl_trandep']])[0]
+    period, t0, dur, depth = np.asarray(df.loc[(df.pl_hostname == hostname) & (df.pl_letter == planet_letter)][['pl_orbper', 'pl_tranmid', 'pl_trandur', 'pl_trandep']])[0]
 
     return period, t0, dur, depth
-
