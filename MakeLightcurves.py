@@ -6,38 +6,47 @@ import pandas
 print('lk version:',lk.__version__)
 
 # Fetching planet information
-planet_info = pandas.read_csv('data/planet_matches.csv')
-candidate_info = pandas.read_csv('data/candidate_matches.csv')
-combined_info = pandas.concat([planet_info,candidate_info])
+crossmatch_planets = pandas.read_csv('data/crossmatch_planets.csv')
+crossmatch_candidates = pandas.read_csv('data/crossmatch_candidates.csv')
+combined = pandas.concat([crossmatch_planets,crossmatch_candidates])
 
-def get_star_name(tic):
+def get_star_name(tic=None,epic=None):
     """Return the name of a host star based on its TIC ID."""
-    tic_index = planet_info.index[planet_info['TIC'] == tic].tolist()
-    full_name = planet_info['Planet'][tic_index]
+    if tic:
+        index = combined.index[combined['TIC'] == tic].tolist()
+    if epic:
+        index = combined.index[combined['EPIC'] == epic].tolist()
+    full_name = combined['pl_hostname'][index]
     name = full_name[:-2]
     return name
 
-def get_tic_from_name(name):
-    """Return the name of a host star based on its TIC ID."""
-    name_index = planet_info.index[planet_info['Planet'] == name].tolist()
-    tic = planet_info['TIC'][name_index]
+def get_tic_from_epic(epic):
+    index = combined.index[combined['EPIC'] == epic].tolist()
+    tic = combined['TIC'][index].tolist()[0]
     return tic
 
-def make_lc(tic=None,planet=None,mission='tess',verbose=False):
+def get_tic_from_name(hostname):
+    index = combined.index[combined['pl_hostname'] == hostname].tolist()
+    tic = combined['TIC'][index].tolist()[0]
+    return tic
+
+def make_lc(tic=None,epic=None,hostname=None,mission='tess',verbose=False):
     """Return a LightCurve object from TESS or K2 planet.
 
     Keyword arguments:
-    Need ONE of:
-        tic -- TIC ID # of the planet
-        planet -- name of the planet
+    Need one of:
+        tic -- TIC ID # of the host star
+        epic -- EPIC ID # of the host star
+        hostname -- host star name
     mission -- which mission to get the data from (default 'tess')
     verbose -- whether to print status updates (default False)
     """
     if tic == None:
-        if planet == None:
-            raise ValueError('Must specify either TIC or planet.')
-        tic = get_tic_from_name(planet)
-    
+        if epic:
+            tic = get_tic_from_epic(epic)
+        elif hostname:
+            tic = get_tic_from_name(hostname)
+
     if verbose: print('Fetching TPF...')
     tpf = lk.search_targetpixelfile(tic,mission='tess').download()
     
@@ -70,25 +79,36 @@ def test_colors():
         ax.scatter(x,y,color=c)
     plt.show()
 
-def plot_lc(lc=None,tic=None,planet=None,mission='tess',transit_dict=None,verbose=False):
+def plot_lc(lc=None,tic=None,epic=None,hostname=None,mission='tess',transit_dict=None,verbose=False):
     """Plot the light curve of a host star with predicted transit overlaid.
 
-    Keyword arguments (must have tic OR planet):
-    lc -- LightCurve object
-    tic -- TIC ID # of the host star
-    planet -- name of the planet
+    Keyword arguments:
+    Must have one:
+        lc -- LightCurve object
+        tic -- TIC ID # of the host star
+        epic -- EPIC ID # of the host star
+        hostname -- host star name
     mission -- which mission to get the data from (default 'tess')
     transit_dict -- predicted transits, of the form {'b':[JD1,JD2]}
     verbose -- whether to print status updates (default False)
     """
-    if planet == None:
-        if tic:
-            title = get_star_name(tic)
-    else:
-        title = planet[:-2]
-    
     if lc == None:
-        lc = make_lc(tic=tic,planet=planet,mission=mission,verbose=verbose)
+        lc = make_lc(tic=tic,epic=epic,hostname=hostname,mission=mission,verbose=verbose)
+
+    if hostname:
+        title = hostname
+    else:
+        if tic == None and epic == None:
+            title = 'Unknown'
+        elif tic:
+            title = get_star_name(tic=tic)
+        elif epic:
+            title = get_star_name(epic=epic)
+
+    if mission.lower() == 'tess':
+        offset = 2457000
+    elif mission.lower() == 'k2':
+        offset = 2454833
 
     ax = lc.scatter(s=0.1)
     
@@ -97,7 +117,7 @@ def plot_lc(lc=None,tic=None,planet=None,mission='tess',transit_dict=None,verbos
         color_index = j % len(colors)
         for p in transit_dict:
             for time in transit_dict[p]:
-                plt.axvline(x=time-2457000, color=colors[color_index], alpha=0.5, linewidth = 3)
+                plt.axvline(x=time-offset, color=colors[color_index], alpha=0.5, linewidth = 3)
         j += 1
     
     plt.title(title) 
