@@ -6,6 +6,8 @@
 
 * [crossmatch_candidates.csv](crossmatch_candidates.csv) = unconfirmed K2 planet candidates, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_candidates.csv](overlap_candidates.csv) (34 targets).
 
+* [crossmatch_bright.csv](crossmatch_bright.csv) = stars <= 10 KepMag, i.e. intersection of [crossmatch_all.csv](crossmatch_all.csv) and [overlap_bright.csv](overlap_bright.csv) (225 targets).
+
 * [crossmatch_planets.csv](crossmatch_planets.csv) = confirmed K2 planets, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_planets.csv](overlap_planets.csv) (26 targets).
 
 'overlap_[]' files: K2 sources in the TESS FOV, courtesy of Dr. Jessie Dotson at NASA Ames. Contain K2 EPIC IDs, RA, Dec, KepMag, TESS sector, basic stellar/planetary parameters (differs slightly between files).
