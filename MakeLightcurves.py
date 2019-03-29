@@ -10,8 +10,6 @@ planet_info = pandas.read_csv('data/planet_matches.csv')
 candidate_info = pandas.read_csv('data/candidate_matches.csv')
 combined_info = pandas.concat([planet_info,candidate_info])
 
-print(combined_info)
-
 def get_star_name(tic):
     """Return the name of a host star based on its TIC ID."""
     tic_index = planet_info.index[planet_info['TIC'] == tic].tolist()

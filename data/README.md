@@ -4,13 +4,13 @@
 
 * [crossmatch_all.csv](crossmatch_all.csv) = targets <= 16 KepMag, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_trimmed.csv](overlap_trimmed.csv) (312 targets).
 
-* [crossmatch_candidates.csv](crossmatch_candidates.csv) = unconfirmed K2 planet candidates, i.e. intersection of[short_cad_all.csv](short_cad_all.csv) and [overlap_candidates.csv](overlap_candidates.csv) (34 targets).
+* [crossmatch_candidates.csv](crossmatch_candidates.csv) = unconfirmed K2 planet candidates, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_candidates.csv](overlap_candidates.csv) (34 targets).
 
-* [crossmatch_planets.csv](crossmatch_planets.csv) = confirmed K2 planets, i.e. intersection of[short_cad_all.csv](short_cad_all.csv) and [overlap_planets.csv](overlap_planets.csv) (26 targets).
+* [crossmatch_planets.csv](crossmatch_planets.csv) = confirmed K2 planets, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_planets.csv](overlap_planets.csv) (26 targets).
 
 'overlap_[]' files: K2 sources in the TESS FOV, courtesy of Dr. Jessie Dotson at NASA Ames. Contain K2 EPIC IDs, RA, Dec, KepMag, TESS sector, basic stellar/planetary parameters (differs slightly between files).
 
-* [overlap_all.csv](overlap_all.csv) = all 57,395 targets, courtesy of Dr. Knicole Colon at NASA Goddard.
+* [overlap_all.csv](overlap_all.csv) = all overlapping targets, courtesy of Dr. Knicole Colon at NASA Goddard (57,395 targets).
 
 * [overlap_bright.csv](overlap_bright.csv) = stars brighter than 10 KepMag (1476 targets)
 
@@ -28,7 +28,7 @@
 
 TESS short cadence targets
 
-* [short_cad_all.csv](short_cad_all.csv) = all 72,947 targets with TESS 2 minute cadence data in sectors 1-7, courtesy of Dr. David Martin at the University of Chicago by [scraping MAST](http://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html). Only TIC IDs.
+* [TESS_short_cad.csv](TESS_short_cad.csv) = all 72,947 targets with TESS 2 minute cadence data in sectors 1-7, courtesy of Dr. David Martin at the University of Chicago by [scraping MAST](http://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html). Only TIC IDs.
 
 'times_[]' files: observation periods for K2 campaigns and TESS sectors in Gregorian, Julian, and modified dates.
 
