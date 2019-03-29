@@ -1,17 +1,38 @@
 ### A brief guide to CSVs
 
-* [wtv-all-unique-targets.csv](wtv-all-unique-targets.csv) contains the list of all K2 targets to be subsequently observed with TESS in any sector, courtesy of Dr. Knicole Colon at NASA Goddard.
+'crossmatch_[]' files: K2 sources with TESS 2 minute cadence data in sectors 1-7.
 
-* [K2cut.csv](K2cut.csv) is the subset of [wtv-all-unique-targets.csv](wtv-all-unique-targets.csv) that have been observed at the time of creation of this file (through sector 7) and below 16th mag.
+* [crossmatch_all.csv](crossmatch_all.csv) = targets <= 16 KepMag, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_trimmed.csv](overlap_trimmed.csv) (312 targets).
 
-* [K2TICs.csv](K2TICs.csv) is equivalent to [K2cut.csv](K2cut.csv), but is the list of corresponding TIC IDs.
+* [crossmatch_candidates.csv](crossmatch_candidates.csv) = unconfirmed K2 planet candidates, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_candidates.csv](overlap_candidates.csv) (34 targets).
 
-* [shortCadenceTargetList.csv](shortCadenceTargetList.csv) contains the list of all TESS targets observed with two-minute cadence data through sector 7, courtesy of Dr. David Martin at the University of Chicago.
+* [crossmatch_planets.csv](crossmatch_planets.csv) = confirmed K2 planets, i.e. intersection of [short_cad_all.csv](short_cad_all.csv) and [overlap_planets.csv](overlap_planets.csv) (26 targets).
 
-* [overlapplanets.csv](overlapplanets.csv) contains the list of all confirmed K2 planets to be subsequently observed with TESS in any sector, courtesy of Dr. Jessie Dotson at NASA Ames.
+'overlap_[]' files: K2 sources in the TESS FOV, courtesy of Dr. Jessie Dotson at NASA Ames. Contain K2 EPIC IDs, RA, Dec, KepMag, TESS sector, basic stellar/planetary parameters (differs slightly between files).
 
-* [matches.csv](matches.csv) is the intersection of[K2cut.csv](K2cut.csv) and [shortCadenceTargetList.csv](shortCadenceTargetList.csv), i.e. the list of K2 targets subsequently observed by TESS with two-minute cadence data through sector 7 and below 16th mag.
+* [overlap_all.csv](overlap_all.csv) = all overlapping targets, courtesy of Dr. Knicole Colon at NASA Goddard (57,395 targets).
 
-* [planetmatches.csv](planetmatches.csv) is the intersection of[overlapplanets.csv](overlapplanets.csv) and [shortCadenceTargetList.csv](shortCadenceTargetList.csv), i.e. the list of confirmed K2 planets subsequently observed by TESS with two-minute cadence data through sector 7.
+* [overlap_bright.csv](overlap_bright.csv) = stars brighter than 10 KepMag (1476 targets)
 
-* [planetinfo.csv](planetinfo.csv) is an expanded version of [planetmatches.csv](planetmatches.csv) which also contains the sector observed, RA and Dec of the host star, planet name, and planet orbital period. This is a working document.
+* [overlap_candidates.csv](overlap_candidates.csv) = unconfirmed K2 planet candidates (132 targets)
+
+* [overlap_K2sc.csv](overlap_K2sc.csv) = stars with 1 minute cadence in K2 (201 targets).
+
+* [overlap_planets.csv](overlap_planets.csv) = confirmed K2 planets (50 targets).
+
+* [overlap_stars.csv](overlap_stars.csv) = stars with stellar parameter info (55,236 targets).
+
+* [overlap_trimmed.csv](overlap_trimmed.csv) = [overlap_all.csv](overlap_all.csv), but only <= 16 KepMag and TESS sectors 1-7.
+
+* [overlap_trimmed_K2.csv](overlap_trimmed_K2.csv) = [overlap_trimmed.csv](overlap_trimmed.csv), but converted to TIC IDs and with no other info.
+
+TESS short cadence targets
+
+* [TESS_short_cad.csv](TESS_short_cad.csv) = all 72,947 targets with TESS 2 minute cadence data in sectors 1-7, courtesy of Dr. David Martin at the University of Chicago by [scraping MAST](http://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html). Only TIC IDs.
+
+'times_[]' files: observation periods for K2 campaigns and TESS sectors in Gregorian, Julian, and modified dates.
+
+* [times_K2.csv](times_K2.csv) = K2 campaigns
+
+* [times_TESS.csv](times_TESS.csv) = TESS sectors
+
