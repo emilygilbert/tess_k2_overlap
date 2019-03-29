@@ -14,8 +14,11 @@ def fetch_K2_targets(target_type='planets',verbose=False):
     if verbose: print('K2 targets:',K2_targets.shape[0])
     return K2_targets
 
-def cross_match(target_type='planets',verbose=False,vals=[]):
-    short_cad_TICs = fetch_short_cad(verbose=verbose)
+def cross_match(target_type='planets',short_cad_TICs=None,verbose=False,vals=[]):
+    if short_cad_TICs == None:
+        short_cad_TICs = fetch_short_cad(verbose=verbose)
+    else:
+        if verbose: print('Short cadence targets:',len(short_cad_TICs))
     K2_targets = fetch_K2_targets(target_type=target_type,verbose=verbose)
     rows_list = []
     for index, row in K2_targets.iterrows():
